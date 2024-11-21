@@ -1,0 +1,3 @@
+C:/Users/Paula/Desktop/Uni/PEL/TEMA3/PC-UF3/cmake-build-debug/CMakeFiles/PC_UF3.dir
+C:/Users/Paula/Desktop/Uni/PEL/TEMA3/PC-UF3/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Paula/Desktop/Uni/PEL/TEMA3/PC-UF3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
