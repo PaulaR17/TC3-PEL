@@ -5,9 +5,8 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#endif //VECTOR_H
 #include <stdexcept>
-#include <utility> // Para std::swap
+#include <utility> /
 
 template<typename T> // T debe ser un tipo default_initializable
 class VectorPEL {
@@ -98,3 +97,5 @@ public:
         }
     }
 };
+
+#endif //VECTOR_H
