@@ -1,68 +1,70 @@
+//
+// Created by Paula on 22/11/2024.
+//
+
+#ifndef DYNARRAY_H
+#define DYNARRAY_H
+#include <iostream>
+#include <stdexcept>
+#include <iostream>
+#include <stdexcept>
+using namespace std;
+
 template <typename T>
 class Dynarray {
 private:
     T* data;
-    size_t size;
-    size_t capacity;
+    size_t size;     //tamaño actual del array
+    size_t capacity; //capacidad total del array
 
-    // Método privado para redimensionar el almacenamiento
-    void resize(size_t new_capacity) {
-        T* new_data = new T[new_capacity];  //asignación de nueva memoria
-        for (size_t i = 0; i < size; ++i) { //copia de elementos
-            new_data[i] = data[i];
+    void resize(size_t new_capacity) { //para redimensionar el array
+        T* new_data = new T[new_capacity];
+        for (size_t i = 0; i < size; ++i) {
+            new_data[i] = data[i]; //aqui copia los elementos actuales
         }
-        delete[] data;      // Liberación de la memoria antigua
-        data = new_data;    // Asignación del nuevo bloque
+        delete[] data;
+        data = new_data;  //para apuntar al nuevo bloque
         capacity = new_capacity;
     }
 
 public:
-    // Constructor: inicializa el Dynarray con capacidad inicial
-    Dynarray(size_t initial_capacity = 2)
+    explicit Dynarray(size_t initial_capacity = 2) //para inicializarlo con una capacidad inicial
         : data(new T[initial_capacity]), size(0), capacity(initial_capacity) {}
-
-    // Destructor: libera la memoria reservada
     ~Dynarray() {
         delete[] data;
     }
 
-    // Función para insertar un elemento al final del Dynarray
-    void push_back(const T& value) {
-        if (size == capacity) {           // Si se alcanza la capacidad
-            resize(capacity * 2);         // Duplicar la capacidad
+    void push_back(const T& value) { //metodo para añadir un elemento al final del array
+        if (size == capacity) { //si no hay espacio suficiente duplicamos la capacidad del array
+            resize(capacity * 2);
         }
-        data[size++] = value;             // Insertar el nuevo valor
+        data[size++] = value;
     }
-
-    // Función para eliminar el último elemento del Dynarray
-    void pop_back() {
-        if (size > 0) {                   // Solo si hay elementos
-            --size;                       // Decrementar el tamaño
+    void pop_back() { //quitamos el ultimo elemeneto
+        if (size > 0) {
+            --size;
         }
     }
-
-    // Función para obtener el tamaño actual del Dynarray
     size_t get_size() const {
         return size;
     }
 
-    // Función para obtener la capacidad actual del Dynarray
     size_t get_capacity() const {
         return capacity;
     }
 
-    // Acceso a un elemento específico (con verificación de límites)
+    //operador [] para acceso a elementos (con validación de rango)
     T& operator[](size_t index) {
         if (index >= size) {
-            throw std::out_of_range("Índice fuera de rango");
+            throw out_of_range("Índice fuera de rango");
         }
         return data[index];
     }
 
-    // Acceso constante a un elemento específico (con verificación de límites)
+    //operador [] para acceso constante
     const T& operator[](size_t index) const {
         if (index >= size) {
-            throw std::out_of_range("Índice fuera de rango");
+            throw out_of_range("Índice fuera de rango");
         }
         return data[index];
     }
@@ -101,3 +103,5 @@ public:
         }
     }
 };
+
+#endif //DYNARRAY_H
