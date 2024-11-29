@@ -162,42 +162,80 @@ public:
     }
 };
 
-// Funcion de ejemplo
-void EjemploCatalogo() {
+void mostrarMenuPeliculasSeries(Catalogo& catalogo) {
+    int opcion;
+    string titulo;
+    do {
+        cout << "\n--- Menu de Peliculas/Series ---\n";
+        cout << "1. Buscar por titulo\n";
+        cout << "2. Alquilar pelicula\n";
+        cout << "3. Volver al menu principal\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+
+        cin.ignore(); // Limpiar el buffer de entrada para getline
+        switch (opcion) {
+            case 1:
+                cout << "Ingrese el titulo a buscar: ";
+                getline(cin, titulo);
+                catalogo.buscarPorTitulo(titulo);
+                break;
+            case 2:
+                cout << "Ingrese el titulo de la pelicula para alquilar: ";
+                getline(cin, titulo);
+                catalogo.alquilarPelicula(titulo);
+                break;
+            case 3:
+                cout << "Volviendo al menu principal...\n";
+                break;
+            default:
+                cout << "Opcion no valida. Intente de nuevo.\n";
+        }
+    } while (opcion != 3);
+}
+
+void mostrarMenuPrincipal(Catalogo& catalogo) {
+    int opcion ;
+    do {
+        cout << "\n--- Menu Principal ---" << endl;
+        cout << "1. Catalogo de Musica" << endl;
+        cout << "2. Catalogo de Peliculas/Series" << endl;
+        cout << "3. Salir" << endl;
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                cout << "El catalogo de musica aún no está implementado." << endl;
+            break;
+            case 2:
+                mostrarMenuPeliculasSeries(catalogo);
+            break;
+            case 3:
+                cout << "Saliendo del programa..." << endl;
+            break;
+            default:
+                cout << "Opcion invalida. Por favor, intente nuevamente." << endl;
+        }
+    } while (opcion != 3);
+}
+
+int main() {
     Catalogo catalogo;
 
-    // Crear peliculas
+    // Cargar datos iniciales
     Pelicula* inception = new Pelicula(new string("Inception"), new string("Ciencia Ficcion"), new string("HD"));
     Pelicula* titanic = new Pelicula(new string("Titanic"), new string("Drama"), new string("Full HD"));
-
-    // Crear una serie
     Serie* breakingBad = new Serie(new string("Breaking Bad"), new string("Crimen"), new string("4K"));
     breakingBad->agregarEpisodio(new Pelicula(new string("Piloto"), new string("Crimen"), new string("4K")));
     breakingBad->agregarEpisodio(new Pelicula(new string("El gato esta en la bolsa"), new string("Crimen"), new string("4K")));
 
-    // Agregar peliculas y series al catalogo
     catalogo.agregarPelicula(inception);
     catalogo.agregarPelicula(titanic);
     catalogo.agregarSerie(breakingBad);
 
-    // Buscar por titulo
-    cout << "Buscando 'Inception'"<<endl;
-    catalogo.buscarPorTitulo("Inception");
+    // Mostrar menú principal
+    mostrarMenuPrincipal(catalogo);
 
-    cout << "Buscando 'Breaking Bad':"<<endl;
-    catalogo.buscarPorTitulo("Breaking Bad");
-
-    // Alquilar una pelicula
-    cout << "Alquilando 'Inception: "<<endl;
-    catalogo.alquilarPelicula("Inception");
-
-    // Intentar alquilar una serie
-    cout << "Intentando alquilar 'Breaking Bad':"<<endl;
-    catalogo.alquilarPelicula("Breaking Bad");
-}
-
-int main()
-{
-    EjemploCatalogo();
     return 0;
 }

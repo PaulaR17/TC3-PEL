@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/mateo/Documents/Clases/PEL/Actividad Colaborativa 3/main.cpp" "CMakeFiles/PC_UF3.dir/main.cpp.obj" "gcc" "CMakeFiles/PC_UF3.dir/main.cpp.obj.d"
+  "D:/Repositorios/trabajo-grupal-PEL3/TC3-PEL/main.cpp" "CMakeFiles/PC_UF3.dir/main.cpp.obj" "gcc" "CMakeFiles/PC_UF3.dir/main.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
