@@ -1,4 +1,4 @@
-# Install script for directory: D:/Repositorios/trabajo-grupal-PEL3/TC3-PEL
+# Install script for directory: R:/Repositorios/Proyecto PEL 3/TC3-PEL
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Repositorios/trabajo-grupal-PEL3/TC3-PEL/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "R:/Repositorios/Proyecto PEL 3/TC3-PEL/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

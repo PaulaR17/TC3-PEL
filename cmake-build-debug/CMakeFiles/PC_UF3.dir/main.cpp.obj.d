@@ -1,5 +1,5 @@
 CMakeFiles/PC_UF3.dir/main.cpp.obj: \
- D:\Repositorios\trabajo-grupal-PEL3\TC3-PEL\main.cpp \
+ R:\Repositorios\Proyecto\ PEL\ 3\TC3-PEL\main.cpp \
  C:/msys64/mingw64/include/c++/14.2.0/iostream \
  C:/msys64/mingw64/include/c++/14.2.0/bits/requires_hosted.h \
  C:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -145,7 +145,7 @@ CMakeFiles/PC_UF3.dir/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/14.2.0/bits/ostream.tcc \
  C:/msys64/mingw64/include/c++/14.2.0/istream \
  C:/msys64/mingw64/include/c++/14.2.0/bits/istream.tcc \
- D:\Repositorios\trabajo-grupal-PEL3\TC3-PEL\Dynarray.h \
- D:\Repositorios\trabajo-grupal-PEL3\TC3-PEL\Vector.h \
+ R:\Repositorios\Proyecto\ PEL\ 3\TC3-PEL\Dynarray.h \
+ R:\Repositorios\Proyecto\ PEL\ 3\TC3-PEL\Vector.h \
  C:/msys64/mingw64/include/c++/14.2.0/utility \
  C:/msys64/mingw64/include/c++/14.2.0/bits/stl_relops.h

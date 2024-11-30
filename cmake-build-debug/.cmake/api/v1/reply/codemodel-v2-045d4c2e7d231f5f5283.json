@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/Repositorios/trabajo-grupal-PEL3/TC3-PEL/cmake-build-debug",
-		"source" : "D:/Repositorios/trabajo-grupal-PEL3/TC3-PEL"
+		"build" : "R:/Repositorios/Proyecto PEL 3/TC3-PEL/cmake-build-debug",
+		"source" : "R:/Repositorios/Proyecto PEL 3/TC3-PEL"
 	},
 	"version" : 
 	{
