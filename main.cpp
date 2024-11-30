@@ -3,14 +3,6 @@
 #include "Vector.h"
 using namespace std;
 
-class Audio {
-    private:
-    string titulo;
-    string artistas;
-};
-
-using namespace std;
-
 // Clase base Multimedia
 class Multimedia {
 private:
@@ -162,6 +154,107 @@ public:
     }
 };
 
+// Clase bade Audio
+class Audio {
+private:
+    string* titulo;
+    string* album;
+    string* grupo;
+    string* genero;
+
+public:
+    // Constructor
+    Audio(const string& titulo, const string& album, const string& grupo, const string& genero) {
+        this->titulo = new string(titulo);
+        this->album = new string(album);
+        this->grupo = new string(grupo);
+        this->genero = new string(genero);
+    }
+
+    // Destructor
+    ~Audio() {
+        delete titulo;
+        delete album;
+        delete grupo;
+        delete genero;
+    }
+
+    // Métodos de acceso
+    const string& getTitulo() const { return *titulo; }
+    const string& getAlbum() const { return *album; }
+    const string& getGrupo() const { return *grupo; }
+    const string& getGenero() const { return *genero; }
+
+    // Mostrar información del audio
+    void mostrar() const {
+        cout << "Titulo: " << *titulo
+             << ", Album: " << *album
+             << ", Grupo: " << *grupo
+             << ", Genero: " << *genero << endl;
+    }
+};
+
+class CatalogoMusica {
+private:
+    Dynarray<Audio*> audios;
+
+public:
+    ~CatalogoMusica() {
+        for (size_t i = 0; i < audios.get_size(); ++i) {
+            delete audios[i];
+        }
+    }
+
+    void agregarAudio(Audio* audio) {
+        audios.push_back(audio);
+    }
+
+    void mostrarTodas() const {
+        if (audios.get_size() == 0) {
+            cout << "El catálogo de música está vacío." << endl;
+            return;
+        }
+        for (size_t i = 0; i < audios.get_size(); ++i) {
+            audios[i]->mostrar();
+        }
+    }
+
+    // Métodos de búsqueda
+    void buscarPorTitulo(const string& titulo) const {
+        buscar([&titulo](const Audio* a) { return a->getTitulo() == titulo; }, "titulo", titulo);
+    }
+
+    void buscarPorAlbum(const string& album) const {
+        buscar([&album](const Audio* a) { return a->getAlbum() == album; }, "álbum", album);
+    }
+
+    void buscarPorGenero(const string& genero) const {
+        buscar([&genero](const Audio* a) { return a->getGenero() == genero; }, "género", genero);
+    }
+
+    void buscarPorGrupo(const string& grupo) const {
+        buscar([&grupo](const Audio* a) { return a->getGrupo() == grupo; }, "grupo", grupo);
+    }
+
+private:
+    // Método general para búsquedas
+    template<typename Func>
+    void buscar(Func criterio, const string& tipo, const string& valor) const {
+        bool encontrado = false;
+        for (size_t i = 0; i < audios.get_size(); ++i) {
+            if (criterio(audios[i])) {
+                audios[i]->mostrar();
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            cout << "No se encontró ninguna canción con " << tipo << ": " << valor << endl;
+        }
+    }
+};
+
+
+
 void mostrarMenuPeliculasSeries(Catalogo& catalogo) {
     int opcion;
     string titulo;
@@ -194,7 +287,57 @@ void mostrarMenuPeliculasSeries(Catalogo& catalogo) {
     } while (opcion != 3);
 }
 
-void mostrarMenuPrincipal(Catalogo& catalogo) {
+void mostrarMenuMusica(CatalogoMusica& catalogo) {
+    int opcion;
+    string input;
+
+    do {
+        cout << "\n--- Menu de Música ---\n";
+        cout << "1. Buscar por título\n";
+        cout << "2. Buscar por álbum\n";
+        cout << "3. Buscar por grupo\n";
+        cout << "4. Buscar por género\n";
+        cout << "5. Mostrar todas las canciones\n";
+        cout << "6. Volver al menú principal\n";
+        cout << "Seleccione una opción: ";
+        cin >> opcion;
+
+        cin.ignore();  // Limpiar el buffer de entrada para getline
+        switch (opcion) {
+            case 1:
+                cout << "Ingrese el título a buscar: ";
+            getline(cin, input);
+            catalogo.buscarPorTitulo(input);
+            break;
+            case 2:
+                cout << "Ingrese el álbum a buscar: ";
+            getline(cin, input);
+            catalogo.buscarPorAlbum(input);
+            break;
+            case 3:
+                cout << "Ingrese el grupo a buscar: ";
+            getline(cin, input);
+            catalogo.buscarPorGrupo(input);
+            break;
+            case 4:
+                cout << "Ingrese el género a buscar: ";
+            getline(cin, input);
+            catalogo.buscarPorGenero(input);
+            break;
+            case 5:
+                cout << "\n--- Lista de todas las canciones ---\n";
+            catalogo.mostrarTodas();
+            break;
+            case 6:
+                cout << "Volviendo al menú principal...\n";
+            break;
+            default:
+                cout << "Opción no válida. Intente de nuevo.\n";
+        }
+    } while (opcion != 6);
+}
+
+void mostrarMenuPrincipal(Catalogo& catalogo, CatalogoMusica& catalogoMusica) {
     int opcion ;
     do {
         cout << "\n--- Menu Principal ---" << endl;
@@ -206,7 +349,7 @@ void mostrarMenuPrincipal(Catalogo& catalogo) {
 
         switch (opcion) {
             case 1:
-                cout << "El catalogo de musica aún no está implementado." << endl;
+                mostrarMenuMusica(catalogoMusica);
             break;
             case 2:
                 mostrarMenuPeliculasSeries(catalogo);
@@ -234,8 +377,19 @@ int main() {
     catalogo.agregarPelicula(titanic);
     catalogo.agregarSerie(breakingBad);
 
+    CatalogoMusica catalogoMusica;
+
+    // Cargar datos iniciales
+    Audio* starWarsTheme = new Audio("Star Wars Theme", "Star Wars Soundtrack", "John Williams", "Instrumental");
+    Audio* doraemonOpening = new Audio("Doraemon Opening", "Doraemon OST", "Takumi Kusube", "Anime");
+    Audio* thriller = new Audio("Thriller", "Thriller", "Michael Jackson", "Pop");
+
+    catalogoMusica.agregarAudio(starWarsTheme);
+    catalogoMusica.agregarAudio(doraemonOpening);
+    catalogoMusica.agregarAudio(thriller);
+
     // Mostrar menú principal
-    mostrarMenuPrincipal(catalogo);
+    mostrarMenuPrincipal(catalogo, catalogoMusica);
 
     return 0;
 }
